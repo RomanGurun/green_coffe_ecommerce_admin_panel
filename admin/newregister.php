@@ -68,22 +68,22 @@ if (isset($_POST['register'])) {
 <div class="input-field">
     <label >user name <sup>*</sup></label>
     <input type="text" name="name" maxlength="20" required placeholder="Enter your username" 
-    oninput="this.value.replace(/\/\g,'')">
+    oninput="this.value.replace(/\s/g,'')">
 </div>
 
 <div class="input-field">
 <label>user email</label>
-<input type="email" name="email" maxlength="20" required placeholder="Enter your email" oninput="this.value.replace(/\/\g,'')">
+<input type="email" name="email" maxlength="20" required placeholder="Enter your email" oninput="this.value.replace(/\s/g,'')">
 </div>
 
 <div class="input-field">
 <label>user password</label>
-<input type="password" name="password" maxlength="20" required placeholder="Enter your password" oninput="this.value.replace(/\/\g,'')">
+<input type="password" name="password" maxlength="20" required placeholder="Enter your password" oninput="this.value.replace(/\s/g,'')">
 </div>
 
 <div class="input-field">
 <label>confirm password</label>
-<input type="password" name="cpassword" maxlength="20" required placeholder="confirm password" oninput="this.value.replace(/\/\g,'')">
+<input type="password" name="cpassword" maxlength="20" required placeholder="confirm password" oninput="this.value.replace(/\s/g,'')">
 </div>
 
 <div class="input-field">

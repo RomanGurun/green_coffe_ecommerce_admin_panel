@@ -1,48 +1,27 @@
 <?php
 include '../components/connection.php';
+session_start();
 
-if (isset($_POST['register'])) {
-    $id = unique_id();
-
-    $name = $_POST['name'];
-    $name = filter_var($name, FILTER_SANITIZE_STRING);
-
+if (isset($_POST['login'])) {
+ 
     $email = $_POST['email'];
     $email = filter_var($email, FILTER_SANITIZE_STRING);
 
     $pass = sha1($_POST['password']);
     $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+   $select_admin=$conn->prepare("SELECT * FROM `admin` WHERE email =? AND password= ?");
+   $select_admin->execute([$email,$pass]);
+   
+   if($select_admin->rowCount() > 0){
+$fetch_admin_id = $select_admin->fetch(PDO::FETCH_ASSOC);
+$SESSION['admin_id']=$fetch_admin_id['id'];
+header('location:dashboard.php');
+   }else{
+    $warning_msg[]='incorrect username or password';
 
-    $cpass = sha1($_POST['cpassword']);
-    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
 
-    $warning_msg = array(); // Initialize the warning array
-
-    if (!isset($_FILES['image'])) {
-        $warning_msg[] = 'Please select a profile image';
-    } else {
-        $image = $_FILES['image']['name'];
-        $image = filter_var($image, FILTER_SANITIZE_STRING);
-        $image_tmp_name = $_FILES['image']['tmp_name'];
-        $image_folder = '../image/' . $image;
-    }
-
-    $select_admin = $conn->prepare("SELECT * FROM `admin` WHERE email = ?");
-    $select_admin->execute([$email]);
-
-    if ($select_admin->rowCount() > 0) {
-        $warning_msg[] = 'User email already exists';
-    } else {
-        if ($pass != $cpass) {
-            $warning_msg[] = 'Confirm password not matched';
-        } else {
-            $insert_admin = $conn->prepare('INSERT INTO `admin`(`id`,`name`,`email`,`password`,`profile`) VALUES(?,?,?,?,?)');
-            $insert_admin->execute([$id, $name, $email, $cpass, $image]);
-
-            move_uploaded_file($image_tmp_name, $image_folder);
-            $success_msg[] = 'New admin registered';
-        }
-    }
+}
+ 
 }
 ?>
 
@@ -68,16 +47,16 @@ if (isset($_POST['register'])) {
 
 <div class="input-field">
 <label>user email</label>
-<input type="email" name="email" maxlength="20" required placeholder="Enter your email" oninput="this.value.replace(/\/\g,'')">
+<input type="email" name="email" maxlength="20" required placeholder="Enter your email" oninput="this.value.replace(/\s/g,'')">
 </div>
 
 <div class="input-field">
 <label>user password</label>
-<input type="password" name="password" maxlength="20" required placeholder="Enter your password" oninput="this.value.replace(/\/\g,'')">
+<input type="password" name="password" maxlength="20" required placeholder="Enter your password" oninput="this.value.replace(/\s/g,'')">
 </div>
 
 <button type="submit" name="login" class="btn">login now</button>
-<p>do not have an account ? <a href="register.php">login now</a></p>
+<p>do not have an account ? <a href="register.php">register now</a></p>
 
 
 </form>
