@@ -50,7 +50,7 @@ $num_of_products=$select_product->rowCount();
     ?>
 <h3><?= $num_of_products; ?></h3>
 <p>products added</p>
-<a href="add_product.php" class="btn">add new products</a>
+<a href="add_products.php" class="btn">add new products</a>
 </div>
 
 <div class="box">

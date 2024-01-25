@@ -150,7 +150,7 @@ form h1 {
     padding: 2rem;
     position: relative;
     border-radius: 5px;
-
+font-size: 16px;
 
 }
 
@@ -309,6 +309,10 @@ margin:1rem 0 ;
     justify-content: space-evenly;
 
 }
+.flex-btn .btn{
+    margin:.5rem;
+}
+
 
 .banner{
     background-image: url('../img/banner.jpg');
@@ -340,7 +344,9 @@ margin:1rem 0 ;
 }
 span{
     color: black;
-    text-transform: capitalize;
+    text-transform: uppercase;
+
+
 }
 .dashboard .box-container .box{
 text-align: center;

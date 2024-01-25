@@ -5,7 +5,7 @@
         <nav class="navbar">
 
             <a href="dashboard.php">dashboard</a>
-            <a href="add_product.php">add product</a>
+            <a href="add_products.php">add product</a>
             <a href="view_product.php">view product</a>
             <a href="accounts.php">accounts</a>
 

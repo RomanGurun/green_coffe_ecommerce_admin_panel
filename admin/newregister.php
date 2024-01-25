@@ -67,10 +67,11 @@ if (isset($_POST['register'])) {
 <h1>register</h1>
 <div class="input-field">
     <label >user name <sup>*</sup></label>
-    <input type="text" name="name" maxlength="20" required placeholder="Enter your username" 
+    <input type="text" name="name" maxlength="20" required placeholder="Enter your username"
+oninput="this.value.replace(/\s/g,'')"> 
+
 </div>
 
-oninput="this.value.replace(/\s/g,'')">
 <div class="input-field">
 <label>user email</label>
 <input type="email" name="email" maxlength="20" required placeholder="Enter your email" oninput="this.value.replace(/\s/g,'')">
