@@ -1,3 +1,5 @@
+<!-- I think it is a js librabry jquery type or vanila jas -->
+
 <?php 
 if(isset($success_msg)){
 foreach($success_msg as $success_msg){

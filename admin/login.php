@@ -14,7 +14,7 @@ if (isset($_POST['login'])) {
    
    if($select_admin->rowCount() > 0){
 $fetch_admin_id = $select_admin->fetch(PDO::FETCH_ASSOC);
-$SESSION['admin_id']=$fetch_admin_id['id'];
+$_SESSION['admin_id']=$fetch_admin_id['id'];
 header('location:dashboard.php');
    }else{
     $warning_msg[]='incorrect username or password';
