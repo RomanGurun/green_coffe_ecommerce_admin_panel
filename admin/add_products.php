@@ -112,7 +112,7 @@ if(isset($_POST['draft'])){
                     $insert_product = $conn->prepare("INSERT INTO `products` (`id`, `name`, `price`, `image`, `product_detail`, `status`) VALUES (?, ?, ?, ?, ?, ?)");
             
                     $insert_product->execute([$id, $name, $price, $image, $content, $status]);
-                    $success_msg[] = 'Product inserted successfully';
+                    $success_msg[] = 'Product saved as draft successfully';
                 
                 }
             
