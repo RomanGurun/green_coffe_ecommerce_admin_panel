@@ -7,7 +7,18 @@ if(!isset($admin_id)){
     header('location: login.php');
 
 }
+// delete product 
+if(isset($_POST['delete'])){
 
+    $p_id = $_POST['product_id'];
+    $p_id = filter_var($p_id,FILTER_SANITIZE_STRING);
+
+    $delete_product = $conn->prepare("DELETE FROM `products` WHERE id = ?");
+    $delete_product->execute([$p_id]);
+
+    $success_msg[]='product deleted successfully';
+
+}
 
 ?>
 
@@ -78,8 +89,9 @@ while($fetch_products=$select_products->fetch(PDO::FETCH_ASSOC))
   }
  
 }else{
+//=========================== message which will display if there is no any products added on website ==================
    echo' <div class="empty">
-    <p>no product added yet ! <br> <a href="add_products.php" style="margin-top:1.5rem;">add product</a></p>
+    <p>no product added yet ! <br> <a href="add_products.php" style="margin-top:1.5rem; " class="btn">add product</a></p>
 </div>';
 
 
