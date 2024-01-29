@@ -108,6 +108,7 @@ select {
     width: 100%;
     margin: 1rem 0;
     box-shadow: var(--box-shadow);
+/* font-size: 20px; */
 }
 
 input[type='submit'] {
@@ -195,6 +196,14 @@ section,
     margin-bottom: 2%;
 
 }
+.edit-post .flex-btn .btn{
+    width:33%;
+margin:.5rem;
+text-align: center;
+
+}
+
+
 /* ------------- scroll bar ---------------------- */
 ::-webkit-scrollbar{
     width:4px;

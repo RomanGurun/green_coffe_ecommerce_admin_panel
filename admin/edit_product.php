@@ -43,6 +43,7 @@ if($fetch_delete_image['image'] !=''){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,34 +54,110 @@ if($fetch_delete_image['image'] !=''){
 
 
 </head>
+
 <body>
-<?php include'admin_header.php'; ?>
+    <?php include'admin_header.php'; ?>
 
-<div class="main">
-<div class="banner">
-    <h1>edit products</h1>
+    <div class="main">
+        <div class="banner">
+            <h1>edit products</h1>
+        </div>
+        <div class="title2">
+            <a href="dashboard.php">dashboard</a> <span>/ edit products</span>
+        </div>
+
+        <section class="edit-post">
+            <h1 class="heading">edit product</h1>
+            <?php
+$post_id =$_GET['id'];
+$select_product = $conn->prepare("SELECT * FROM `products` WHERE id = ?");
+$select_product->execute([$post_id]);
+
+if($select_product->rowCount() >0){
+ while($fetch_product = $select_product->fetch(PDO::FETCH_ASSOC)){
+
+ 
+    
+
+?>
+            <div class="form-container">
+                <form action="" method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" name="old_image" value="<?= $fetch_product['image']; ?>">
+                    <input type="hidden" name="product_id" value="<?= $fetch_product['id']; ?>">
+
+                    <div class="input-field">
+                        <label for="update status"></label>
+                        <select name="status">
+
+                            <option selected disabled value="<?= $fetch_product['status'] ?>">
+                                <?= $fetch_product['status'] ?> </option>
+                            <option value="active"> active</option>
+                            <option value="deactive">deactive</option>
+                        </select>
+
+                    </div>
+
+                    <div class="input-field">
+                        <label>product name</label>
+                        <input type="text " name="name" value="<?= $fetch_product['name'] ?>">
+                    </div>
+
+
+                    <div class="input-field">
+                        <label>product price</label>
+                        <input type="number " name="price" value="<?= $fetch_product['price'] ?>">
+                    </div>
+
+
+                    <div class="input-field">
+                        <label>product description</label>
+                        <textarea name="content"> <?= $fetch_product['product_detail'] ?></textarea>
+
+                    </div>
+
+                    <div class="input-field">
+                        <label>product image</label>
+                        <input type="file" name="image" accept="image/*">
+                        <img src="../image/<?= $fetch_product['image']; ?>" alt="">
+                    </div>
+<div class="flex-btn">
+    <button type="submit" name="update" class="btn">update product</button>
+<a href="view_product.php" class="btn">go back</a>
+<button type="submit" name="delete" class="btn">delete product</button>
 </div>
-<div class="title2">
-    <a href="dashboard.php">dashboard</a> <span>/ edit products</span>
-</div>
 
-<section class="read-post">
-    <h1 class="heading">edit product</h1>
-  
+                </form>
+            </div>
 
-</section>
-<div>
+            <?php 
+      }
 
-
-<!-- sweetalert cdn link -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
-<!-- custom js link -->
-<script type="text/javascript" src="script.js"></script>
-
-<!-- alert -->
-<?php include'../components/alert.php'; ?>
+    }else {
+        echo '
+        <div class="empty">
+        <p>no produts added yet ! <br> <a href="add_products.php" style="margin-top:1.5rem;" class="btn">add products </a>
+        </p>
+        </div>';
 
 
- </body>
+    }
+?>
+
+        </section>
+        <div>
+
+
+            <!-- sweetalert cdn link -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+            <!-- custom js link -->
+            <script type="text/javascript" src="script.js"></script>
+
+            <!-- alert -->
+            <?php include'../components/alert.php'; ?>
+
+
+</body>
+
 </html>
