@@ -31,35 +31,38 @@ if(!isset($admin_id)){
     <h1>register user's</h1>
 </div>
 <div class="title2">
-    <a href="dashboard.php">dashboard</a> <span>register user's</span>
+    <a href="dashboard.php">dashboard</a> <span>unread message's</span>
 </div>
 
 <section class="accounts">
-    <h1 class="heading">register user's </h1>
+    <h1 class="heading">unread message's </h1>
      <div class="box-container">
         <?php 
         // ==============================table access gareko here ==================================================
-$select_users = $conn->prepare ("SELECT * FROM `users`");
-$select_users->execute();
+$select_message = $conn->prepare ("SELECT * FROM `message`");
+$select_message->execute();
 
 
-if($select_users->rowCount() >0){
+if($select_message->rowCount() >0){
 // =====
-while($fetch_users = $select_users->fetch(PDO::FETCH_ASSOC)){
-$user_id = $fetch_users['id'];
+while($fetch_message = $select_message->fetch(PDO::FETCH_ASSOC)){
+
 
 
 ?>
 <div class="box">
+<h3 class="name"> <?=  $fetch_message['name'];  ?></h3>
+<h4><?= $fetch_message['subject'];  ?></h4>
+<p><?= $fetch_message['message']; ?></p>
+<form action="" method="post" class="flex-btn">
+<input type="hidden" name="delete_id" value="<?= $fetch_message['id']; ?>">
 
-<p>user id : <span><?= $user_id; ?></span></p>
-<p>user name : <span><?= $fetch_users['name']; ?></span></p>
-<p>user email : <span><?= $fetch_users['email']; ?></span></p>
+<button type="submit" name="delete" class="btn" onclick="return confirm('delete this message'); ">delete message</button>
+
+</form>
 
 
 </div>
-
-
 
 <?php
 
@@ -69,7 +72,7 @@ $user_id = $fetch_users['id'];
 }else {
     echo '
 <div class="empty">
-<p>no user registered yet </p>
+<p>no message send yet </p>
 
 </div>
 ';

@@ -530,3 +530,19 @@ padding: 1rem 0;
     margin:.5rem;
     text-align: center;
 }
+.accounts .box-container .box{
+    font-size:1.5rem;
+text-align: center;
+box-shadow: var(--box-shadow);
+border-radius: .5rem;
+text-align: center;
+padding: 2rem 1.5rem;
+padding-bottom:3rem;
+line-height: 1.7;
+color:#555;
+
+}
+
+.accounts .box-container .box span{
+    color:orange;
+}

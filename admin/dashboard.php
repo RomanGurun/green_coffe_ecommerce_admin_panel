@@ -108,7 +108,7 @@ $num_of_products=$select_product->rowCount();
     ?>
 <h3><?= $num_of_message; ?></h3>
 <p>unread message</p>
-<a href="accounts.php" class="btn">view message</a>
+<a href="admin_message.php" class="btn">view message</a>
 </div>
 <div class="box">
     <?php 
