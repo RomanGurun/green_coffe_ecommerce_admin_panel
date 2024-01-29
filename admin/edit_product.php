@@ -7,7 +7,72 @@ if(!isset($admin_id)){
     header('location: login.php');
 
 }
+// update product
+if(isset($_POST['update'])){
+$post_id= $_GET['id'];
 
+$name = $_POST['name'];
+$name=filter_var($name,FILTER_SANITIZE_STRING);
+
+$price=$_POST['price'];
+$price=filter_var($price,FILTER_SANITIZE_STRING);
+
+$content = $_POST['content'];
+$content=filter_var($content,FILTER_SANITIZE_STRING);
+
+$status = $_POST['status'];
+$status=filter_var($status,FILTER_SANITIZE_STRING);
+// muni ko status name xa bujnu
+
+// update products in DATABASE
+
+$update_product = $conn->prepare("UPDATE `products` SET name = ?,price = ?,product_detail = ?,status = ? WHERE id = ?");
+$update_product->execute([$name,$price,$content,$status,$post_id]);
+
+$success_msg[]='product updated';
+
++
+$old_image = $POST['old_image'];
+
+
+$image = $_FILES['image']['name'];
+$image= filter_var($image,FILTER_SANITIZE_STRING);
+$image_size = $_FILES['image']['size'];
+$image_tmp_name =$_FILES['image']['tmp_name'];
+$image_folder ="../image/".$image;
+
+
+$select_image = $conn->prepare("SELECT * FROM `products` WHERE image = ?");
+$select_image->execute([$image]);
+
+if(!empty($image)){
+
+if($image_size > 2000000){
+    $warning_msg[] = "image size is too large";
+
+}else if($select_image->rowCount() > 0 AND $image != ''){
+
+$warning_msg="please rename your image";
+
+}else{
+    $update_image = $conn->prepare("UPDATE `products` SET image = ? WHERE id = ?");
+    $update_image->execute([$image,$post_id]);
+    move_uploaded_file($image_tmp_name,$image_folder);
+
+if($old_image != $image AND $old_image != ''){
+unlink('../image/'.$old_image);
+
+
+}
+
+
+}
+
+}
+
+
+
+}
 
 
 
