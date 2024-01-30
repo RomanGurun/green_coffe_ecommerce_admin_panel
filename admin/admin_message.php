@@ -7,7 +7,32 @@ if(!isset($admin_id)){
     header('location: login.php');
 
 }
+// =================================delete unread messages or messages ============================================
+if(isset($_POST['delete'])){
+$delete_id =$_POST['delete_id'];
+// name delete id gareko input tag jaslya ajhai fetch gareko tag is stored in this variable
 
+$delete_id = filter_var($delete_id,FILTER_SANITIZE_STRING); 
+
+// ============================================ filter tw garnai paryo ==================================================================
+
+
+$verify_delete = $conn->prepare("SELECT * FROM `message` WHERE id = ?");
+$verify_delete->execute([$delete_id]);
+
+if($verify_delete->rowCount() >0){
+
+
+$delete_message = $conn->prepare("DELETE FROM `message` WHERE id = ?");
+$delete_message->execute([$delete_id]);
+$success_msg[] = 'message deleted';
+
+}else{
+    $waring_msg[] ='message already deleted';
+
+}
+
+}
 
 ?>
 
@@ -41,7 +66,6 @@ if(!isset($admin_id)){
         // ==============================table access gareko here ==================================================
 $select_message = $conn->prepare ("SELECT * FROM `message`");
 $select_message->execute();
-
 
 if($select_message->rowCount() >0){
 // =====
